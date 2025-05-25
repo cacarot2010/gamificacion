@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ecoviajero: Misión Tierra - Enhanced Edition</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <script src="https://unpkg.com/howler@2.2.3/dist/howler.min.js"></script>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header -->
+        <div class="game-header">
+            <div class="logo">🌍 ECOVIAJERO</div>
+            <div class="player-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">⚡</div>
+                    <span id="player-level">Nivel 1</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">💎</div>
+                    <span id="eco-credits">0 Eco-Créditos</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🏆</div>
+                    <span id="badges-count">0 Insignias</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">❤️</div>
+                    <span id="lives-count">3 Vidas</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro-screen" id="intro-screen">
+            <h1 class="game-title">
+                🚀 ECOVIAJERO: MISIÓN TIERRA
+            </h1>
+            <p class="game-description">
+                En un futuro distópico, la Tierra está al borde del colapso. Como guardián del planeta,
+                debes viajar al pasado para cambiar la historia y salvar nuestro mundo.
+            </p>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/k14V9tv2ufE?si=uj0w7yoMH4ig62tH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <h3>Elige tu personaje:</h3>
+            <div class="character-select" id="character-select">
+                <div class="character-option" data-character="leo">
+                    <div class="character-avatar">🧑‍🚀</div>
+                    <h4>Leo</h4>
+                    <p>El Explorador</p>
+                    <div class="character-trait">+1 Vida Extra</div>
+                </div>
+                <div class="character-option" data-character="lia">
+                    <div class="character-avatar">👩‍🚀</div>
+                    <h4>Lía</h4>
+                    <p>La Visionaria</p>
+                    <div class="character-trait">+30s en desafíos</div>
+                </div>
+                <div class="character-option" data-character="nova">
+                    <div class="character-avatar">🤖</div>
+                    <h4>Nova</h4>
+                    <p>El Androide</p>
+                    <div class="character-trait">+10% Eco-Créditos</div>
+                </div>
+            </div>
+            <button class="start-btn" id="start-game" disabled>🌱 Comenzar Misión</button>
+        </div>
+
+        <!-- Mapa de mundos -->
+        <div class="world-map" id="world-map">
+            <button class="btn btn-secondary" id="back-to-home">🏠 Regresar a Inicio</button>
+            <h2 class="map-title">🗺️ Mapa Temporal - Refugio Eco-0</h2>
+            <div class="worlds-grid">
+                <div class="world-card world1" data-world="1">
+                    <div class="world-icon">👤</div>
+                    <h3>Huella Consciente</h3>
+                    <p>Descubre tu impacto personal en el planeta con sopas de letras ambientales.</p>
+                    <div class="world-progress">
+                        <div class="world-progress-bar"></div>
+                    </div>
+                    <div class="world-status">🔓 Disponible</div>
+                </div>
+                <div class="world-card world2 locked" data-world="2">
+                    <div class="world-icon">🏠</div>
+                    <h3>Hogar Verde</h3>
+                    <p>Completa puzzles deslizantes sobre energías renovables.</p>
+                    <div class="world-progress">
+                        <div class="world-progress-bar"></div>
+                    </div>
+                    <div class="world-status">🔒 Bloqueado</div>
+                </div>
+                <div class="world-card world3 locked" data-world="3">
+                    <div class="world-icon">🏫</div>
+                    <h3>Eco-Comunidad Educativa</h3>
+                    <p>Juega memoria con especies en peligro de extinción.</p>
+                    <div class="world-progress">
+                        <div class="world-progress-bar"></div>
+                    </div>
+                    <div class="world-status">🔒 Bloqueado</div>
+                </div>
+                <div class="world-card world4 locked" data-world="4">
+                    <div class="world-icon">🏢</div>
+                    <h3>Negocios con Propósito</h3>
+                    <p>Resuelve sopas de letras sobre empresas sostenibles.</p>
+                    <div class="world-progress">
+                        <div class="world-progress-bar"></div>
+                    </div>
+                    <div class="world-status">🔒 Bloqueado</div>
+                </div>
+                <div class="world-card world5 locked" data-world="5">
+                    <div class="world-icon">🎯</div>
+                    <h3>Mundo Final: Crucigrama del Planeta</h3>
+                    <p>Completa el crucigrama definitivo para salvar el mundo.</p>
+                    <div class="world-progress">
+                        <div class="world-progress-bar"></div>
+                    </div>
+                    <div class="world-status">🔒 Bloqueado</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge Screen -->
+        <div class="challenge-screen" id="challenge-screen">
+            <button class="btn btn-secondary" id="back-to-map">🗺️ Regresar al Mapa</button>
+            <div class="challenge-container">
+                <h2 id="world-title">Mundo X</h2>
+                <div class="challenge-question" id="challenge-question">Desafío</div>
+                <div class="timer" id="timer">Tiempo: 05:00</div>
+
+                <!-- Word Search -->
+                <div class="word-search-container" id="word-search-container">
+                    <div class="word-search-grid" id="word-search-grid"></div>
+                    <div class="words-list" id="words-list"></div>
+                </div>
+
+                <!-- Sliding Puzzle -->
+                <div class="puzzle-container" id="puzzle-container">
+                    <div class="puzzle-grid" id="puzzle-grid"></div>
+                </div>
+
+                <!-- Memory Game -->
+                <div class="memory-game-container" id="memory-game-container">
+                    <div class="memory-grid" id="memory-grid"></div>
+                </div>
+
+                <!-- Crossword -->
+                <div class="crossword-container" id="crossword-container">
+                    <div class="crossword-grid" id="crossword-grid"></div>
+                    <div class="crossword-clues">
+                        <div class="clues-section">
+                            <h4>Horizontales</h4>
+                            <div id="across-clues"></div>
+                        </div>
+                        <div class="clues-section">
+                            <h4>Verticales</h4>
+                            <div id="down-clues"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-buttons">
+                    <button class="btn btn-secondary" id="reset-challenge">🔄 Reiniciar</button>
+                    <button class="btn btn-primary" id="submit-challenge" disabled>✅ Completar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div class="victory-screen" id="victory-screen">
+            <div class="victory-content">
+                <div class="victory-icon">🏆</div>
+                <h2>¡DESAFÍO SUPERADO!</h2>
+                <p id="victory-message">Has completado el desafío con éxito.</p>
+                <div id="rewards-container">
+                    <div class="reward-item">
+                        <div class="reward-icon">💎</div>
+                        <div class="reward-value">+<span id="eco-credits-reward">50</span> Eco-Créditos</div>
+                    </div>
+                    <div class="reward-item">
+                        <div class="reward-icon">🏆</div>
+                        <div class="reward-value">+<span id="badge-reward">1</span> Insignia</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="continue-btn">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Game Over -->
+        <div class="game-over-screen" id="game-over-screen">
+            <div class="game-over-icon">😓</div>
+            <h2>¡TIEMPO AGOTADO!</h2>
+            <p>No has podido completar el desafío a tiempo.</p>
+            <p>Perdiste <span id="lives-lost">1</span> vida.</p>
+            <button class="btn btn-primary" id="retry-btn">Intentar de nuevo</button>
+            <button class="btn btn-secondary" id="back-to-map-btn">Volver al mapa</button>
+        </div>
+
+        <!-- Final Screen -->
+        <div class="final-screen" id="final-screen">
+            <div class="final-icon">🌎</div>
+            <h2>¡MISIÓN COMPLETADA!</h2>
+            <p>¡Gracias a ti, has salvado el futuro del planeta!</p>
+            <div class="final-stats">
+                <div class="final-stat-item">
+                    <div class="final-stat-icon">💎</div>
+                    <div class="final-stat-value">Total Eco-Créditos: <span id="final-credits">0</span></div>
+                </div>
+                <div class="final-stat-item">
+                    <div class="final-stat-icon">⏱️</div>
+                    <div class="final-stat-value">Tiempo Total: <span id="final-time">0</span></div>
+                </div>
+                <div class="final-stat-item">
+                    <div class="final-stat-icon">🏆</div>
+                    <div class="final-stat-value">Insignias: <span id="final-badges">0</span></div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="restart-game">Jugar de nuevo</button>
+            <button class="btn btn-secondary" id="share-results">Compartir resultados</button>
+        </div>
+
+        <!-- Asistente NOA -->
+        <div class="noa-assistant" id="noa-assistant">🤖</div>
+        <div class="noa-message" id="noa-message">
+            <p>¡Hola! Soy NOA, tu asistente. ¿Necesitas ayuda?</p>
+        </div>
+    </div>
+
+    <script src="src/js/audio.js"></script>
+    <script src="src/js/gameData.js"></script>
+    <script src="src/js/wordSearch.js"></script>
+    <script src="src/js/puzzle.js"></script>
+    <script src="src/js/memory.js"></script>
+    <script src="src/js/crossword.js"></script>
+    <script src="src/js/main.js"></script>
+</body>
+</html>
